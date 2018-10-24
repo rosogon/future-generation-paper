@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2016 Atos
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<wsag:Agreement xmlns:wsag="http://www.ggf.org/namespaces/ws-agreement" xmlns:sla="http://sla.atos.eu" wsag:AgreementId="agreement-a">
+
+    <wsag:Name>ExampleAgreement</wsag:Name>
+    <wsag:Context>
+        <wsag:AgreementInitiator>client-b</wsag:AgreementInitiator>
+        <wsag:AgreementResponder>provider-a</wsag:AgreementResponder>
+        <wsag:ServiceProvider>AgreementResponder</wsag:ServiceProvider>
+        <wsag:ExpirationTime>2019-10-17T12:00:00Z</wsag:ExpirationTime>
+        <wsag:TemplateId>template-a</wsag:TemplateId>
+        <sla:Service>service-a</sla:Service>
+    </wsag:Context>
+    <wsag:Terms>
+        <wsag:All>
+            <wsag:ServiceProperties wsag:Name="ServiceProperties" wsag:ServiceName="ServiceName">
+                <wsag:VariableSet>
+                    <wsag:Variable wsag:Name="responseTime" wsag:Metric="xs:double">
+                        <wsag:Location>service-a/responseTime</wsag:Location>
+                    </wsag:Variable>
+                    <wsag:Variable wsag:Name="alive" wsag:Metric="xs:double">
+                        <wsag:Location>service-a/alive</wsag:Location>
+                    </wsag:Variable>
+                </wsag:VariableSet>
+            </wsag:ServiceProperties>
+            <wsag:GuaranteeTerm wsag:Name="ResponseTime">
+                <wsag:ServiceScope wsag:ServiceName="service-a"/>
+                <wsag:ServiceLevelObjective>
+                    <wsag:KPITarget>
+                        <wsag:KPIName>responseTime</wsag:KPIName>
+                        <wsag:CustomServiceLevel>
+                            <sla:Slo>
+                                <sla:Constraint>responseTime LT 500</sla:Constraint>
+                            </sla:Slo>
+                        </wsag:CustomServiceLevel>
+                    </wsag:KPITarget>
+                </wsag:ServiceLevelObjective>
+            </wsag:GuaranteeTerm>
+            <wsag:GuaranteeTerm wsag:Name="Availability">
+                <wsag:ServiceScope wsag:ServiceName="service-a"/>
+                <wsag:QualifyingCondition>{"samplingperiodfactor":"SCHEDULEx10"}</wsag:QualifyingCondition>
+                <wsag:ServiceLevelObjective>
+                    <wsag:KPITarget>
+                        <wsag:KPIName>Availability</wsag:KPIName>
+                        <wsag:CustomServiceLevel>
+                            <sla:Slo>
+                                <sla:Constraint>avg_600_alive GT 0.9</sla:Constraint>
+                            </sla:Slo>
+                        </wsag:CustomServiceLevel>
+                    </wsag:KPITarget>
+                </wsag:ServiceLevelObjective>
+            </wsag:GuaranteeTerm>
+        </wsag:All>
+    </wsag:Terms>
+</wsag:Agreement>
