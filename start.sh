@@ -11,6 +11,8 @@ killall server.sh
 
 set -x
 ./server.py "$@" &> server.out &
+PID=$!
+echo "Server running with PID $PID"
 ./load-samples-core.sh
 ./client.sh
-killall server.py
+kill $PID
