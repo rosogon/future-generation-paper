@@ -18,7 +18,7 @@ def main():
 
         print("{} GET {} {} ms".format(r.status_code, server, delta))
 
-        send_metrics(kairos, agreement, responseTime=delta, alive=1)
+        send_metrics(kairos, agreement, responseTime=delta, alive=1 if r.status_code < 500 else 0)
 
     except ConnectionError as e:
         print(e.message)
