@@ -18,7 +18,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         index = (index + 1) % len(args.pattern)
 
         t = random.randint(args.min, args.max)
-        sleep(t / 1000)
+        sleep(t / 1000.0)
         
         self.send_response(200 if alive else 500)
         self.send_header('Content-type','text/html')
